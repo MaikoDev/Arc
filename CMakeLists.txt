@@ -3,4 +3,4 @@ project(Arc)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Arc main.cpp)
+add_executable(Arc src/main.cpp)
