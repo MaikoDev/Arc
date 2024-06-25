@@ -152,13 +152,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\commands\CommandFactory.cpp" />
+    <ClCompile Include="src\commands\StatusCommand.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\objects\TrackedObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\commands\CommandData.h" />
+    <ClInclude Include="src\commands\CommandFactory.h" />
+    <ClInclude Include="src\commands\CommandType.h" />
+    <ClInclude Include="src\commands\ICommand.h" />
+    <ClInclude Include="src\commands\StatusCommand.h" />
     <ClInclude Include="src\io\FileStructure.h" />
     <ClInclude Include="src\io\ISerializable.h" />
+    <ClInclude Include="src\objects\BlobObject.h" />
+    <ClInclude Include="src\objects\CommitObject.h" />
     <ClInclude Include="src\objects\TrackedObject.h" />
+    <ClInclude Include="src\objects\TrackedType.h" />
+    <ClInclude Include="src\objects\TreeObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
