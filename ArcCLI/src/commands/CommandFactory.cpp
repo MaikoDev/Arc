@@ -32,7 +32,6 @@ namespace MaikoDev {
                 for (int i = 0, totalArguments = argumentList.size(); i < totalArguments; i++) {
                     dataPtr->Arguments.push(std::move(argumentList.front()));
                     argumentList.pop();
-                std::shared_ptr<ICommand> command;
                 }
 
                 return dataPtr;
