@@ -1,16 +1,33 @@
 #include "commands/CommandFactory.h"
 
+#include <collections/CommandKeyDictionary.h>
 #include <commands/StatusCommand.h>
 
 namespace MaikoDev {
     namespace Arc {
         namespace Commands {
-            static std::unordered_map<std::string, CommandType> CommandMap = {
-                {"status", CommandType::Status},
-                {"fetch", CommandType::Fetch},
-                {"pull", CommandType::Pull},
-                {"add", CommandType::Add},
-                {"commit", CommandType::Commit},
+            static Collections::CommandKeyMap CommandMap = {
+                {"init", Commands::CommandType::Init},
+                {"add", Commands::CommandType::Add},
+                {"mv", Commands::CommandType::Move},
+                {"restore", Commands::CommandType::Restore},
+                {"rm", Commands::CommandType::Remove},
+                {"bisect", Commands::CommandType::Bisect},
+                {"diff", Commands::CommandType::Diff},
+                {"grep", Commands::CommandType::Grep},
+                {"log", Commands::CommandType::Log},
+                {"show", Commands::CommandType::Show},
+                {"status", Commands::CommandType::Status},
+                {"branch", Commands::CommandType::Branch},
+                {"commit", Commands::CommandType::Commit},
+                {"merge", Commands::CommandType::Merge},
+                {"rebase", Commands::CommandType::Rebase},
+                {"reset", Commands::CommandType::Reset},
+                {"switch", Commands::CommandType::Switch},
+                {"tag", Commands::CommandType::Tag},
+                {"fetch", Commands::CommandType::Fetch},
+                {"pull", Commands::CommandType::Pull},
+                {"push", Commands::CommandType::Push},
             };
 
             inline const std::unique_ptr<CommandData> const extractCommand(int argc, char** args) {
@@ -20,14 +37,14 @@ namespace MaikoDev {
                     argumentList.push(std::move(std::make_unique<std::string>(args[i])));
                 }
 
-                std::unique_ptr<std::string> commandType = std::move(argumentList.front());
+                std::unique_ptr<std::string> commandName = std::move(argumentList.front());
                 argumentList.pop();
 
-                auto commandTemplate = CommandMap.find(*commandType);
-                if (commandTemplate == CommandMap.end()) return nullptr;
+                auto commandType = CommandMap.get(*commandName);
+                if (commandType == CommandMap.end()) return nullptr;
 
                 std::unique_ptr<CommandData> dataPtr = std::make_unique<CommandData>();
-                dataPtr->Type = commandTemplate->second;
+                dataPtr->Type = commandType;
 
                 for (int i = 0, totalArguments = argumentList.size(); i < totalArguments; i++) {
                     dataPtr->Arguments.push(std::move(argumentList.front()));
@@ -41,6 +58,9 @@ namespace MaikoDev {
                 std::shared_ptr<ICommand> command;
 
                 switch (data->Type) {
+                case CommandType::Init:
+                    //command.reset(new InitCommand());
+                    break;
                 case CommandType::Status:
                     command.reset(new StatusCommand());
 
