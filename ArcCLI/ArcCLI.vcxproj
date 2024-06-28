@@ -152,12 +152,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\collections\CommandKeyDictionary.cpp" />
     <ClCompile Include="src\commands\CommandFactory.cpp" />
     <ClCompile Include="src\commands\StatusCommand.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\objects\TrackedObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\collections\CommandKeyDictionary.h" />
     <ClInclude Include="src\commands\CommandData.h" />
     <ClInclude Include="src\commands\CommandFactory.h" />
     <ClInclude Include="src\commands\CommandType.h" />

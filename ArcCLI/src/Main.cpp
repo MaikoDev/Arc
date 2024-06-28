@@ -10,6 +10,8 @@
 #include <commands/CommandType.h>
 #include <commands/CommandFactory.h>
 
+#include <collections/CommandKeyDictionary.h>
+
 #include <openssl/sha.h>
 
 using namespace MaikoDev::Arc;
