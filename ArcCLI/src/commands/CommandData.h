@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 #include <queue>
 #include <commands/CommandType.h>
 
