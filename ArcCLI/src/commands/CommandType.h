@@ -26,6 +26,7 @@ namespace MaikoDev {
                 Fetch,
                 Pull,
                 Push,
+                Help
             };
         }
     }
