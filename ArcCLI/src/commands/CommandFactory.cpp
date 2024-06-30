@@ -1,6 +1,8 @@
 #include "commands/CommandFactory.h"
 
 #include <collections/CommandKeyDictionary.h>
+
+#include <commands/InitCommand.h>
 #include <commands/StatusCommand.h>
 
 namespace MaikoDev {
@@ -28,20 +30,33 @@ namespace MaikoDev {
                 {"fetch", Commands::CommandType::Fetch},
                 {"pull", Commands::CommandType::Pull},
                 {"push", Commands::CommandType::Push},
+                {"--help", Commands::CommandType::Help},
             };
 
-            inline const std::unique_ptr<CommandData> const extractCommand(int argc, char** args) {
+            CommandFactory::CommandFactory(const fs::path& workDir) : _workDir(workDir) {
+                _arcPath = fs::proximate(".arc", _workDir);
+            }
+
+            inline const std::unique_ptr<CommandData> const extractCommand(int argc, char** args) throw(Exceptions::NonValidCommandException) {
                 std::queue<std::unique_ptr<std::string>> argumentList;
 
                 for (int i = 1; i < argc; i++) {
                     argumentList.push(std::move(std::make_unique<std::string>(args[i])));
                 }
 
-                std::unique_ptr<std::string> commandName = std::move(argumentList.front());
-                argumentList.pop();
+                std::unique_ptr<std::string> commandName = nullptr;
+
+                if (argumentList.size() > 0) {
+                    commandName = std::move(argumentList.front());
+                    argumentList.pop();
+                }
+                else {
+                    commandName = std::make_unique<std::string>("--help");
+                }
 
                 auto commandType = CommandMap.get(*commandName);
-                if (commandType == CommandMap.end()) return nullptr;
+                if (commandType == CommandMap.end()) 
+                    throw Exceptions::NonValidCommandException(std::move(commandName));
 
                 std::unique_ptr<CommandData> dataPtr = std::make_unique<CommandData>();
                 dataPtr->Type = commandType;
@@ -59,28 +74,57 @@ namespace MaikoDev {
 
                 switch (data->Type) {
                 case CommandType::Init:
-                    //command.reset(new InitCommand());
+                    command.reset(new InitCommand(_arcPath));
+                    break;
+                case CommandType::Add:
+                    break;
+                case CommandType::Move:
+                    break;
+                case CommandType::Restore:
+                    break;
+                case CommandType::Remove:
+                    break;
+                case CommandType::Bisect:
+                    break;
+                case CommandType::Diff:
+                    break;
+                case CommandType::Grep:
+                    break;
+                case CommandType::Log:
+                    break;
+                case CommandType::Show:
                     break;
                 case CommandType::Status:
                     command.reset(new StatusCommand());
-
+                    break;
+                case CommandType::Branch:
+                    break;
+                case CommandType::Commit:
+                    break;
+                case CommandType::Merge:
+                    break;
+                case CommandType::Rebase:
+                    break;
+                case CommandType::Reset:
+                    break;
+                case CommandType::Switch:
+                    break;
+                case CommandType::Tag:
                     break;
                 case CommandType::Fetch:
                     break;
                 case CommandType::Pull:
                     break;
-                case CommandType::Add:
+                case CommandType::Push:
                     break;
-                case CommandType::Commit:
-                    break;
-                default:
-                    command = nullptr;
-
+                case CommandType::Help:
                     break;
                 }
 
                 return command;
             }
+
+            const fs::path& CommandFactory::getArcPath() const& { return _arcPath; }
         }
     }
 }
