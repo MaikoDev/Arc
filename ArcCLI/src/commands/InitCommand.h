@@ -16,9 +16,12 @@ namespace MaikoDev {
                 virtual void run() override;
                 virtual void undo() override;
             private:
+
+            private:
                 const fs::path& _arcPath;
                 fs::path _refsPath;
                 fs::path _objsPath;
+                fs::path _headPath;
             };
         }
     }
