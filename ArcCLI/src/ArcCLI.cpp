@@ -14,6 +14,9 @@ namespace MaikoDev {
             fs::path arcPath;
             bool canLoad = false;
 
+            /* Search down to the root to see if any parent directory
+             * contains Arc directory.   
+             */
             while (searchPath != root) {
                 int delimiterIndex = getPathDelimiterIndex(searchPath);
                 arcPath = searchPath;
