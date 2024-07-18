@@ -15,13 +15,12 @@ namespace MaikoDev {
         namespace Commands {
             class CommandFactory {
             public:
-                CommandFactory(const fs::path& workDir);
+                CommandFactory(const fs::path& arcPath);
 
                 std::shared_ptr<ICommand> getCommand(std::unique_ptr<CommandData> data);
                 const fs::path& getArcPath() const&;
             private:
-                const fs::path& _workDir;
-                fs::path _arcPath;
+                const fs::path& _arcPath;
             };
 
             extern inline const std::unique_ptr<CommandData> const extractCommand(int argc, char** args) throw(Exceptions::NonValidCommandException);

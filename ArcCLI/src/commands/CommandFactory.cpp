@@ -33,9 +33,7 @@ namespace MaikoDev {
                 {"--help", Commands::CommandType::Help},
             };
 
-            CommandFactory::CommandFactory(const fs::path& workDir) : _workDir(workDir) {
-                _arcPath = fs::proximate(".arc", _workDir);
-            }
+            CommandFactory::CommandFactory(const fs::path& arcPath) : _arcPath(arcPath) {}
 
             inline const std::unique_ptr<CommandData> const extractCommand(int argc, char** args) throw(Exceptions::NonValidCommandException) {
                 std::queue<std::unique_ptr<std::string>> argumentList;
