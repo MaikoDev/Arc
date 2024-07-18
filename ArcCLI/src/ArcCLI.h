@@ -11,15 +11,14 @@ namespace MaikoDev {
     namespace Arc {
         class ArcCLI {
         public:
-            ArcCLI(const fs::path& workingDirectory, int argc, char** args) throw(std::exception);
-
+            ArcCLI(const fs::path& startDirectory, int argc, char** args) throw(std::exception);       
         private:
-            void logUnknownCommand(const std::string& commandText);
+            int getPathDelimiterIndex(const fs::path& currentPath);
         private:
-            const fs::path& _workDir;
-            const fs::path& _arcDir;
+            const fs::path& _startPath;
+            fs::path _arcPath;
             fs::directory_entry _workingDir;
-            Commands::CommandFactory _commandFactory;
+            std::unique_ptr<Commands::CommandFactory> _commandFactory = nullptr;
         };
     }
 }

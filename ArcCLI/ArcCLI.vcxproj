@@ -158,7 +158,6 @@
     <ClCompile Include="src\commands\InitCommand.cpp" />
     <ClCompile Include="src\commands\StatusCommand.cpp" />
     <ClCompile Include="src\exceptions\UninitializedRepoException.cpp" />
-    <ClCompile Include="src\io\FilePath.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\objects\TrackedObject.cpp" />
   </ItemGroup>
@@ -173,8 +172,8 @@
     <ClInclude Include="src\commands\StatusCommand.h" />
     <ClInclude Include="src\exceptions\NonValidCommandException.h" />
     <ClInclude Include="src\exceptions\UninitializedRepoException.h" />
-    <ClInclude Include="src\io\FilePath.h" />
     <ClInclude Include="src\io\FileStructure.h" />
+    <ClInclude Include="src\io\FileUtils.h" />
     <ClInclude Include="src\io\ISerializable.h" />
     <ClInclude Include="src\objects\BlobObject.h" />
     <ClInclude Include="src\objects\CommitObject.h" />
