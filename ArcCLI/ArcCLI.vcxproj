@@ -157,6 +157,8 @@
     <ClCompile Include="src\commands\CommandFactory.cpp" />
     <ClCompile Include="src\commands\InitCommand.cpp" />
     <ClCompile Include="src\commands\StatusCommand.cpp" />
+    <ClCompile Include="src\exceptions\CommandRuntimeException.cpp" />
+    <ClCompile Include="src\exceptions\NonValidCommandException.cpp" />
     <ClCompile Include="src\exceptions\UninitializedRepoException.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\objects\TrackedObject.cpp" />
@@ -170,6 +172,8 @@
     <ClInclude Include="src\commands\ICommand.h" />
     <ClInclude Include="src\commands\InitCommand.h" />
     <ClInclude Include="src\commands\StatusCommand.h" />
+    <ClInclude Include="src\exceptions\ArcRuntimeException.h" />
+    <ClInclude Include="src\exceptions\CommandRuntimeException.h" />
     <ClInclude Include="src\exceptions\NonValidCommandException.h" />
     <ClInclude Include="src\exceptions\UninitializedRepoException.h" />
     <ClInclude Include="src\io\FileStructure.h" />

@@ -1,6 +1,7 @@
 #include "InitCommand.h"
 
 #include <iostream>
+#include <stdio.h>
 #include <fstream>
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
@@ -8,26 +9,87 @@
 #endif
 
 #include "io/FileUtils.h"
+#include "exceptions/CommandRuntimeException.h"
 
 namespace MaikoDev {
     namespace Arc {
         namespace Commands {
-            InitCommand::InitCommand(const fs::path& arcPath) : _arcPath(arcPath), _refsPath(arcPath), _objsPath(arcPath), _headPath(arcPath) {
+            InitCommand::InitCommand(const fs::path& arcPath) : _arcPath(arcPath), _refsPath(arcPath), _objsPath(arcPath), _headFilePath(arcPath), _backupPath(arcPath) {
                 _refsPath.concat("\\refs");
                 _objsPath.concat("\\objects");
-                _headPath.concat("\\HEAD");
+                _headFilePath.concat("\\HEAD");
+                _backupPath.concat("\\backup");
+
+                _headPtrPath = _refsPath;
+                _headPtrPath.concat("\\heads");
             }
 
             void InitCommand::run() {
                 if (fs::exists(_arcPath)) {
-                    fs::path backupPath = _arcPath;
-                    backupPath.concat("\\backup");
+                    char buffer[50];
 
-                    /* TODO: Backup all files that due exist 
+                    fs::path
+                        backupObjs = _backupPath,
+                        backupRefs = _backupPath,
+                        backupHead = _backupPath;
+
+                    backupRefs.concat("\\refs");
+                    backupObjs.concat("\\objects");
+                    backupHead.concat("\\HEAD");
+
+                    fs::create_directory(_backupPath);
+
+                    bool
+                        objPathExist = fs::exists(_objsPath),
+                        objPathEmpty = (objPathExist) ? fs::is_empty(_objsPath) : true,
+                        headFileExist = fs::exists(_headFilePath),
+                        headPathExist = fs::exists(_headPtrPath);
+
+                    // Make copy of objs folder
+                    if (objPathExist = fs::exists(_objsPath)) {
+                        fs::rename(_objsPath, backupObjs);
+                    }
+                    else {
+                        fs::create_directories(_objsPath);
+                    }
+
+                    if (!headPathExist) {
+                        std::snprintf(buffer, sizeof(buffer),
+                            "Reinitialized %s Arc repository, but was not able to recover headRefs. No Arc origin can be found!",
+                            (objPathEmpty) ? "empty" : "existing"
+                        );
+
+                        throw Exceptions::CommandRuntimeException(buffer);
+                    }
+
+                    /* TODO: Backup all files that do exist 
                      * You should be able to recreate 
                      * HEAD file if ref still exists
                      * not vice versa
                      */
+                    if (!headFileExist) {
+                        byte count = 0;
+                        fs::path headFilePath;
+
+                        for (auto& dir : fs::directory_iterator(_headPtrPath)) {
+                            if (count > 0) {
+                                std::snprintf(buffer, sizeof(buffer),
+                                    "Reinitialized %s Arc repository, but was not able to recover HEAD file. Multiple Arc origins found!",
+                                    (objPathEmpty) ? "empty" : "existing"
+                                );
+
+                                throw Exceptions::CommandRuntimeException(buffer);
+                            }
+
+                            count++;
+                            headFilePath = dir.path();
+                        }
+
+                        if (count == 0) {
+
+                        }
+                    }
+
 
                     std::cout << "Reinitialized empty Arc repository in " << IO::ConvertToUnixPath(_arcPath);
                 }
