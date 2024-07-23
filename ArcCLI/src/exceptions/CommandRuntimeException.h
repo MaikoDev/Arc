@@ -5,9 +5,10 @@
 namespace MaikoDev {
     namespace Arc {
         namespace Exceptions {
-            class NonValidCommandException : public ArcRuntimeException {
+            class CommandRuntimeException : public ArcRuntimeException {
             public:
-                NonValidCommandException(std::unique_ptr<std::string> msg);
+                CommandRuntimeException(const char* msg);
+                CommandRuntimeException(std::unique_ptr<std::string> msg);
                 virtual const char* what() const throw() override;
             };
         }
