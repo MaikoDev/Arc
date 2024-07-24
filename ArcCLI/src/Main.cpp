@@ -13,6 +13,7 @@
 
 #include <collections/CommandKeyDictionary.h>
 #include <exceptions/UninitializedRepoException.h>
+#include <exceptions/CommandRuntimeException.h>
 
 #include <ArcCLI.h>
 
@@ -35,7 +36,7 @@ int main(int argc, char** args) {
     catch (Exceptions::NonValidCommandException& ex) {
         printf("arc: '%s' is not a arc command. See 'arc --help'.\n", ex.what());
     }
-    catch (Exceptions::UninitializedRepoException& ex) {
+    catch (Exceptions::ArcRuntimeException& ex) {
         printf("%s\n", ex.what());
     }
 
