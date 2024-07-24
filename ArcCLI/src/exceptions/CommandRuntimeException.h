@@ -2,6 +2,14 @@
 
 #include "ArcRuntimeException.h"
 
+#define throwArcCommandException(buffer, format, ...) \
+std::snprintf(buffer, sizeof(buffer), \
+    format, \
+    (objPathEmpty) ? "empty" : "existing" \
+);\
+\
+throw Exceptions::CommandRuntimeException(buffer);\
+
 namespace MaikoDev {
     namespace Arc {
         namespace Exceptions {
