@@ -30,7 +30,7 @@ namespace MaikoDev {
 
             void InitCommand::run() {
                 if (fs::exists(_arcPath)) {
-                    char buffer[255];
+                    char msgBuffer[255];
 
                     fs::path
                         backupObjs = _backupPath,
@@ -60,7 +60,7 @@ namespace MaikoDev {
                     if (!headPathExist) {
                         throwInitCommandException(
                             backupObjs, backupRefs, backupHead,
-                            buffer,
+                            msgBuffer,
                             "Reinitialized %s Arc repository, but was unable to recover headRefs. No Arc origin can be found!",
                             (objPathEmpty) ? "empty" : "existing"
                         )
@@ -79,7 +79,7 @@ namespace MaikoDev {
                             if (count > 0) {
                                 throwInitCommandException(
                                     backupObjs, backupRefs, backupHead,
-                                    buffer,
+                                    msgBuffer,
                                     "Reinitialized %s Arc repository, but was unable to recover HEAD file. Multiple Arc origins found!",
                                     (objPathEmpty) ? "empty" : "existing"
                                 )
@@ -93,7 +93,7 @@ namespace MaikoDev {
                         if (count == 0) {
                             throwInitCommandException(
                                 backupObjs, backupRefs, backupHead,
-                                buffer,
+                                msgBuffer,
                                 "Reinitialized %s Arc repository, but was unable to recover HEAD file. No Arc origin can be found!",
                                 (objPathEmpty) ? "empty" : "existing"
                             )
