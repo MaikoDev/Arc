@@ -8,6 +8,10 @@
 #include <Windows.h>
 #endif
 
+#define throwInitCommandException(backupObjs, backupRefs, backupHead, buffer, format, ...)\
+restoreBackup(backupObjs, backupRefs, backupHead);\
+throwArcCommandException(buffer, format, ...)
+
 #include "io/FileUtils.h"
 #include "exceptions/CommandRuntimeException.h"
 
@@ -26,7 +30,7 @@ namespace MaikoDev {
 
             void InitCommand::run() {
                 if (fs::exists(_arcPath)) {
-                    char buffer[50];
+                    char buffer[255];
 
                     fs::path
                         backupObjs = _backupPath,
@@ -54,12 +58,12 @@ namespace MaikoDev {
                     }
 
                     if (!headPathExist) {
-                        std::snprintf(buffer, sizeof(buffer),
-                            "Reinitialized %s Arc repository, but was not able to recover headRefs. No Arc origin can be found!",
+                        throwInitCommandException(
+                            backupObjs, backupRefs, backupHead,
+                            buffer,
+                            "Reinitialized %s Arc repository, but was unable to recover headRefs. No Arc origin can be found!",
                             (objPathEmpty) ? "empty" : "existing"
-                        );
-
-                        throw Exceptions::CommandRuntimeException(buffer);
+                        )
                     }
 
                     /* TODO: Backup all files that do exist 
@@ -69,29 +73,41 @@ namespace MaikoDev {
                      */
                     if (!headFileExist) {
                         byte count = 0;
-                        fs::path headFilePath;
+                        fs::path ptrFilePath;
 
                         for (auto& dir : fs::directory_iterator(_headPtrPath)) {
                             if (count > 0) {
-                                std::snprintf(buffer, sizeof(buffer),
-                                    "Reinitialized %s Arc repository, but was not able to recover HEAD file. Multiple Arc origins found!",
+                                throwInitCommandException(
+                                    backupObjs, backupRefs, backupHead,
+                                    buffer,
+                                    "Reinitialized %s Arc repository, but was unable to recover HEAD file. Multiple Arc origins found!",
                                     (objPathEmpty) ? "empty" : "existing"
-                                );
-
-                                throw Exceptions::CommandRuntimeException(buffer);
+                                )
                             }
 
                             count++;
-                            headFilePath = dir.path();
+                            ptrFilePath = dir.path();
                         }
 
+                         /* No Ptr can be found */
                         if (count == 0) {
-
+                            throwInitCommandException(
+                                backupObjs, backupRefs, backupHead,
+                                buffer,
+                                "Reinitialized %s Arc repository, but was unable to recover HEAD file. No Arc origin can be found!",
+                                (objPathEmpty) ? "empty" : "existing"
+                            )
                         }
+                        
+                        /* Rebuild the HEAD file since we have one single version origin */
+                        std::ofstream headFile(_headFilePath);
+
+                        headFile << "refs: " << IO::ConvertToUnixPath(fs::relative(ptrFilePath, _arcPath));
+                        headFile.close();
                     }
 
-
-                    std::cout << "Reinitialized empty Arc repository in " << IO::ConvertToUnixPath(_arcPath);
+                    std::cout << "Reinitialized " << ((objPathEmpty) ? "empty" : "existing") << " Arc repository in " << IO::ConvertToUnixPath(_arcPath);
+                    restoreBackup(backupObjs, backupRefs, backupHead);
                 }
                 else {
                     fs::create_directory(_arcPath);
@@ -104,19 +120,18 @@ namespace MaikoDev {
 #endif
 
                     /* Create heads folder in refs */
-                    fs::path headRefs = _refsPath;
-                    headRefs.concat("\\heads");
-
-                    fs::create_directories(headRefs);
+                    fs::create_directories(_headPtrPath);
+                    fs::path ptrPath = _headPtrPath;
+                    ptrPath.concat("\\master");
 
                     /* Create HEAD file */
-                    fs::path headFilePath = _arcPath;
-                    headFilePath.concat("\\HEAD");
+                    std::ofstream headFile(_headFilePath);
+                    std::ofstream ptrFile(ptrPath);
 
-                    std::ofstream headFile(headFilePath);
+                    headFile << "refs: " << IO::ConvertToUnixPath(fs::relative(ptrPath, _arcPath));
 
-                    headFile << "refs: " << IO::ConvertToUnixPath(fs::relative(headRefs, _arcPath)) << "/master";
                     headFile.close();
+                    ptrFile.close();
 
                     std::cout << "Initialized empty Arc repository in " << IO::ConvertToUnixPath(_arcPath);
                 }
@@ -124,6 +139,14 @@ namespace MaikoDev {
 
             void InitCommand::undo() {
 
+            }
+
+            inline void InitCommand::restoreBackup(const fs::path& objPath, const fs::path& refsPath, const fs::path& headPath) {
+                if (fs::exists(objPath)) fs::rename(objPath, _objsPath);
+                if (fs::exists(refsPath)) fs::rename(refsPath, _refsPath);
+                if (fs::exists(headPath)) fs::rename(headPath, _headFilePath);
+
+                fs::remove(_backupPath);
             }
         }
     }
