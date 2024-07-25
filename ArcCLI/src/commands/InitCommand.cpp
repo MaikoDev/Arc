@@ -125,8 +125,9 @@ namespace MaikoDev {
                     ptrPath.concat("\\master");
 
                     /* Create HEAD file */
-                    std::ofstream headFile(_headFilePath);
-                    std::ofstream ptrFile(ptrPath);
+                    std::ofstream 
+                        headFile(_headFilePath), 
+                        ptrFile(ptrPath);
 
                     headFile << "refs: " << IO::ConvertToUnixPath(fs::relative(ptrPath, _arcPath));
 
