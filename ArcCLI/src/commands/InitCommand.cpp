@@ -138,10 +138,6 @@ namespace MaikoDev {
                 }
             }
 
-            void InitCommand::undo() {
-
-            }
-
             inline void InitCommand::restoreBackup(const fs::path& objPath, const fs::path& refsPath, const fs::path& headPath) {
                 if (fs::exists(objPath)) fs::rename(objPath, _objsPath);
                 if (fs::exists(refsPath)) fs::rename(refsPath, _refsPath);

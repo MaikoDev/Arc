@@ -14,7 +14,6 @@ namespace MaikoDev {
                 InitCommand(const fs::path& arcPath);
 
                 virtual void run() override;
-                virtual void undo() override;
             private:
                 inline void restoreBackup(const fs::path& objPath, const fs::path& refsPath, const fs::path& headPath);
             private:

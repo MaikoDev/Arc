@@ -8,7 +8,6 @@ namespace MaikoDev {
             class StatusCommand : public ICommand {
             public:
                 virtual void run() override;
-                virtual void undo() override;
             };
         }
     }

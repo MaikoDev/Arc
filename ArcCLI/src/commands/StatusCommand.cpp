@@ -6,10 +6,6 @@ namespace MaikoDev {
             void StatusCommand::run() {
 
             }
-
-            void StatusCommand::undo() {
-
-            }
         }
     }
 }
