@@ -15,6 +15,8 @@
 #include <exceptions/UninitializedRepoException.h>
 #include <exceptions/CommandRuntimeException.h>
 
+#include <objects/TreeObject.h>
+
 #include <ArcCLI.h>
 
 #include <openssl/sha.h>
@@ -39,12 +41,6 @@ int main(int argc, char** args) {
     catch (Exceptions::ArcRuntimeException& ex) {
         printf("%s\n", ex.what());
     }
-
-    /*for (auto const& dir : fs::recursive_directory_iterator(fs::current_path())) {
-        std::cout << dir << std::endl;
-    }*/
-
-    std::cin >> input;
 
     return 0;
 }
