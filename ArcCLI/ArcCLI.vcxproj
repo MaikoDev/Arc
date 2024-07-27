@@ -162,7 +162,9 @@
     <ClCompile Include="src\exceptions\NonValidCommandException.cpp" />
     <ClCompile Include="src\exceptions\UninitializedRepoException.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\objects\BlobObject.cpp" />
     <ClCompile Include="src\objects\TrackedObject.cpp" />
+    <ClCompile Include="src\objects\TreeObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ArcCLI.h" />
