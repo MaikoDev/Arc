@@ -23,14 +23,12 @@ namespace MaikoDev {
 
             }
 
-            const std::unique_ptr<TreeObject> const TreeObject::_createBranch(const fs::path path) {
-                std::unique_ptr<TreeObject> branch = std::make_unique<TreeObject>(path);
-                return branch;
+            inline const std::unique_ptr<TreeObject> const TreeObject::_createBranch(const fs::path path) {
+                return std::make_unique<TreeObject>(path);
             }
 
-            const std::unique_ptr<BlobObject> const TreeObject::_createBlob(const fs::path path) {
-                std::unique_ptr<BlobObject> branch = std::make_unique<BlobObject>(path);
-                return branch;
+            inline const std::unique_ptr<BlobObject> const TreeObject::_createBlob(const fs::path path) {
+                return std::make_unique<BlobObject>(path);
             }
         }
     }
