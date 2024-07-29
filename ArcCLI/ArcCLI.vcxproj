@@ -162,9 +162,11 @@
     <ClCompile Include="src\exceptions\NonValidCommandException.cpp" />
     <ClCompile Include="src\exceptions\UninitializedRepoException.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\mt\ThreadPool.cpp" />
     <ClCompile Include="src\objects\BlobObject.cpp" />
     <ClCompile Include="src\objects\TrackedObject.cpp" />
     <ClCompile Include="src\objects\TreeObject.cpp" />
+    <ClCompile Include="src\tasks\WaitForThreadTasks.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ArcCLI.h" />
@@ -181,11 +183,16 @@
     <ClInclude Include="src\exceptions\UninitializedRepoException.h" />
     <ClInclude Include="src\io\FileUtils.h" />
     <ClInclude Include="src\io\ISerializable.h" />
+    <ClInclude Include="src\mt\IRunnable.h" />
+    <ClInclude Include="src\mt\ThreadInstance.h" />
+    <ClInclude Include="src\mt\Task.h" />
+    <ClInclude Include="src\mt\ThreadPool.h" />
     <ClInclude Include="src\objects\BlobObject.h" />
     <ClInclude Include="src\objects\CommitObject.h" />
     <ClInclude Include="src\objects\TrackedObject.h" />
     <ClInclude Include="src\objects\TrackedType.h" />
     <ClInclude Include="src\objects\TreeObject.h" />
+    <ClInclude Include="src\tasks\WaitForThreadTasks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

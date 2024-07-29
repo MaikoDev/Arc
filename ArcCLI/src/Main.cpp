@@ -15,6 +15,8 @@
 #include <exceptions/UninitializedRepoException.h>
 #include <exceptions/CommandRuntimeException.h>
 
+#include <MT/ThreadPool.h>
+
 #include <objects/TreeObject.h>
 
 #include <ArcCLI.h>
@@ -29,6 +31,8 @@ int main(int argc, char** args) {
     fs::path workingDirectory = fs::current_path();
 
     fs::path arc = fs::proximate(".arc");
+
+    MT::ThreadPool pool(30);
 
     std::cout << fs::absolute(arc) << std::endl;
     
