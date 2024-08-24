@@ -16,6 +16,7 @@
 #include <exceptions/CommandRuntimeException.h>
 
 #include <MT/ThreadPool.h>
+#include <mt/CountingTask.h>
 
 #include <objects/TreeObject.h>
 
@@ -32,9 +33,21 @@ int main(int argc, char** args) {
 
     fs::path arc = fs::proximate(".arc");
 
-    MT::ThreadPool pool(30);
+    MT::ThreadPool pool;
+    std::mutex printingMutex;
+
+    std::deque<std::shared_ptr<MT::Task>> testTasks;
+    for (unsigned int i = 0; i < 100; i += 10) {
+        std::shared_ptr<MT::Task> task;
+        task.reset(new MT::CountingTask(i, i + 9, printingMutex));
+
+        testTasks.push_back(task);
+    }
 
     std::cout << fs::absolute(arc) << std::endl;
+    pool.complete(testTasks, []() {
+        std::cout << "Completed!" << std::endl;
+    });
     
     try {
         ArcCLI app(workingDirectory, argc, args);

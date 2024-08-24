@@ -183,6 +183,7 @@
     <ClInclude Include="src\exceptions\UninitializedRepoException.h" />
     <ClInclude Include="src\io\FileUtils.h" />
     <ClInclude Include="src\io\ISerializable.h" />
+    <ClInclude Include="src\mt\CountingTask.h" />
     <ClInclude Include="src\mt\IRunnable.h" />
     <ClInclude Include="src\mt\ThreadInstance.h" />
     <ClInclude Include="src\mt\Task.h" />

@@ -9,24 +9,25 @@ namespace MaikoDev {
         namespace MT {
             class Task : public IRunnable {
             public:
+                Task() {}
                 virtual void run() override final {
                     _isTaskRunning = true;
-                    onRun();
+                    onTaskRun();
 
                     _isTaskRunning = false;
                     _isComplete = true;
                 }
 
-                void reset() { onReset(); _isComplete = false; }
+                void reset() { onTaskReset(); _isComplete = false; }
 
                 const unsigned int& getTaskId() const& { return _taskId; }
                 const bool& isTaskRunning() const& { return _isTaskRunning; }
                 const bool& isComplete() const& { return _isComplete; }
             protected:
-                virtual void onRun() = 0;
-                virtual void onReset() {};
+                virtual void onTaskRun() = 0;
+                virtual void onTaskReset() {};
             private:
-                const unsigned int _taskId;
+                const unsigned int _taskId = 0;
                 bool _isTaskRunning = false;
                 bool _isComplete = false;
             };
