@@ -1,20 +1,21 @@
 #pragma once
 
-#include <commands/ICommand.h>
 #include <filesystem>
+#include "ICommand.h"
 
 namespace fs = std::filesystem;
 
 namespace MaikoDev {
     namespace Arc {
         namespace Commands {
-            class StatusCommand : public ICommand {
+            class AddCommand : public ICommand {
             public:
-                StatusCommand(const fs::path& projectPath);
+                AddCommand(const fs::path filePath);
+                AddCommand(const std::vector<fs::path> filePaths);
 
                 virtual void run() override;
             private:
-                const fs::path& _projectPath;
+                std::vector<fs::path> _filePaths;
             };
         }
     }

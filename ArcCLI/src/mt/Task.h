@@ -16,6 +16,8 @@ namespace MaikoDev {
 
                     _isTaskRunning = false;
                     _isComplete = true;
+
+                    onTaskFinish();
                 }
 
                 void reset() { onTaskReset(); _isComplete = false; }
@@ -25,6 +27,7 @@ namespace MaikoDev {
                 const bool& isComplete() const& { return _isComplete; }
             protected:
                 virtual void onTaskRun() = 0;
+                virtual void onTaskFinish() {};
                 virtual void onTaskReset() {};
             private:
                 const unsigned int _taskId = 0;

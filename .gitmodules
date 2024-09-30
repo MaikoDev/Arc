@@ -1,0 +1,3 @@
+[submodule "dependencies/gzip"]
+	path = dependencies/gzip
+	url = https://github.com/mapbox/gzip-hpp

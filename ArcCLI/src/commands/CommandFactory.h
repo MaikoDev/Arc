@@ -15,11 +15,12 @@ namespace MaikoDev {
         namespace Commands {
             class CommandFactory {
             public:
-                CommandFactory(const fs::path& arcPath);
+                CommandFactory(const fs::path& projectPath, const fs::path& arcPath);
 
                 std::shared_ptr<ICommand> getCommand(std::unique_ptr<CommandData> data);
                 const fs::path& getArcPath() const&;
             private:
+                const fs::path& _projectPath;
                 const fs::path& _arcPath;
             };
 

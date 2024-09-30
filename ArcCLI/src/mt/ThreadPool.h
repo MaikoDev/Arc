@@ -25,13 +25,11 @@ namespace MaikoDev {
             private:
                 void coordinatorRoutine(std::shared_ptr<ThreadInstance> instance);
                 void workerRoutine(std::shared_ptr<ThreadInstance> instance);
-                inline void nextTask(const std::shared_ptr<ThreadInstance>& instance);
             private:
                 std::thread* _threadPtrs;
                 unsigned int _numberOfThreads;
 
                 std::deque<TaskPtr> _taskQueue;
-                /*std::vector<TaskPtr> _taskBuffer;*/
                 std::vector<std::shared_ptr<ThreadInstance>> _instancesResources;
                 std::vector<std::shared_ptr<ThreadInstance>> _availableWorkers;
 

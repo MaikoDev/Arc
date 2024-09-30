@@ -14,14 +14,17 @@ namespace MaikoDev {
             public:
                 BlobObject(const fs::path path);
                 virtual void deserialize(const char* data) override;
+
             protected:
-                virtual const std::string const& getChecksum() override { return *_checksum; }
+                virtual const std::string const& getChecksum() override;
                 virtual const std::string const& getContent() override { return *_blobData; }
                 virtual const TrackedType& const getType() override { return _trackedType; }
                 virtual const std::string& const getTypeStr() override { return Objects::TrackedTypeStr[_trackedType]; }
             private:
                 const fs::path _path;
                 const TrackedType _trackedType = TrackedType::Blob;
+
+                bool _isValid = false;
 
                 std::unique_ptr<std::string> _blobData;
                 std::unique_ptr<std::string> _checksum;

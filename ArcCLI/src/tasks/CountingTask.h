@@ -3,12 +3,12 @@
 #include <iostream>
 #include <string>
 
-#include "Task.h"
+#include "mt/Task.h"
 
 namespace MaikoDev {
     namespace Arc {
-        namespace MT {
-            class CountingTask : public Task {
+        namespace Tasks {
+            class CountingTask : public MT::Task {
             public:
                 CountingTask(const unsigned int minRange, const unsigned int maxRange, std::mutex& printMutex) : _minRange(minRange), _maxRange(maxRange), _printMutex(printMutex) {}
             protected:

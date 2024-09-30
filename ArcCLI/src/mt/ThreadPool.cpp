@@ -1,7 +1,5 @@
 #include "ThreadPool.h"
 
-#include <functional>
-
 namespace MaikoDev{
     namespace Arc {
         namespace MT {
@@ -141,16 +139,8 @@ namespace MaikoDev{
                     }
 
                     _isTasksComplete.notify_one();
-
-                    //Callback function to add the next task if possible//
-                    /*if (!_taskBuffer.empty()) nextTask(instance);*/
                 }
             }
-
-            /*inline void ThreadPool::nextTask(const std::shared_ptr<ThreadInstance>& instance) {
-                instance->task = _taskBuffer.back();
-                _taskBuffer.pop_back();
-            }*/
         }
     }
 }

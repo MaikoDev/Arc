@@ -2,6 +2,7 @@
 
 #include <collections/CommandKeyDictionary.h>
 
+#include <commands/AddCommand.h>
 #include <commands/InitCommand.h>
 #include <commands/StatusCommand.h>
 
@@ -33,7 +34,7 @@ namespace MaikoDev {
                 {"--help", Commands::CommandType::Help},
             };
 
-            CommandFactory::CommandFactory(const fs::path& arcPath) : _arcPath(arcPath) {}
+            CommandFactory::CommandFactory(const fs::path& projectPath, const fs::path& arcPath) : _projectPath(projectPath), _arcPath(arcPath) {}
 
             inline const std::unique_ptr<CommandData> const extractCommand(int argc, char** args) throw(Exceptions::NonValidCommandException) {
                 std::queue<std::unique_ptr<std::string>> argumentList;
@@ -69,12 +70,14 @@ namespace MaikoDev {
 
             std::shared_ptr<ICommand> CommandFactory::getCommand(std::unique_ptr<CommandData> data) {
                 std::shared_ptr<ICommand> command;
+                std::vector<fs::path> debug;
 
                 switch (data->Type) {
                 case CommandType::Init:
                     command.reset(new InitCommand(_arcPath));
                     break;
                 case CommandType::Add:
+                    command.reset(new AddCommand(debug));
                     break;
                 case CommandType::Move:
                     break;
@@ -93,7 +96,7 @@ namespace MaikoDev {
                 case CommandType::Show:
                     break;
                 case CommandType::Status:
-                    command.reset(new StatusCommand());
+                    command.reset(new StatusCommand(_projectPath));
                     break;
                 case CommandType::Branch:
                     break;

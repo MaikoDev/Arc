@@ -16,7 +16,7 @@
 #include <exceptions/CommandRuntimeException.h>
 
 #include <MT/ThreadPool.h>
-#include <mt/CountingTask.h>
+#include <tasks/CountingTask.h>
 
 #include <objects/TreeObject.h>
 
@@ -33,13 +33,15 @@ int main(int argc, char** args) {
 
     fs::path arc = fs::proximate(".arc");
 
+    std::shared_ptr<uint8_t> test = std::make_shared<uint8_t>(5);
+
     MT::ThreadPool pool;
     std::mutex printingMutex;
 
     std::deque<std::shared_ptr<MT::Task>> testTasks;
     for (unsigned int i = 0; i < 100; i += 10) {
         std::shared_ptr<MT::Task> task;
-        task.reset(new MT::CountingTask(i, i + 9, printingMutex));
+        task.reset(new Tasks::CountingTask(i, i + 9, printingMutex));
 
         testTasks.push_back(task);
     }

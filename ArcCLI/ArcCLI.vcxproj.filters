@@ -54,7 +54,10 @@
     <ClCompile Include="src\mt\ThreadPool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\tasks\WaitForThreadTasks.cpp">
+    <ClCompile Include="src\objects\ObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\commands\AddCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,10 +131,16 @@
     <ClInclude Include="src\mt\ThreadInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\tasks\WaitForThreadTasks.h">
+    <ClInclude Include="src\tasks\CountingTask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\mt\CountingTask.h">
+    <ClInclude Include="src\objects\ObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\commands\AddCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\tasks\LoadChecksumTask.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

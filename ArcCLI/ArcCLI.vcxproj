@@ -126,7 +126,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\openssl\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\gzip\include;$(SolutionDir)dependencies\openssl\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="src\ArcCLI.cpp" />
     <ClCompile Include="src\collections\CommandKeyDictionary.cpp" />
+    <ClCompile Include="src\commands\AddCommand.cpp" />
     <ClCompile Include="src\commands\CommandFactory.cpp" />
     <ClCompile Include="src\commands\InitCommand.cpp" />
     <ClCompile Include="src\commands\StatusCommand.cpp" />
@@ -164,13 +165,14 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\mt\ThreadPool.cpp" />
     <ClCompile Include="src\objects\BlobObject.cpp" />
+    <ClCompile Include="src\objects\ObjectFactory.cpp" />
     <ClCompile Include="src\objects\TrackedObject.cpp" />
     <ClCompile Include="src\objects\TreeObject.cpp" />
-    <ClCompile Include="src\tasks\WaitForThreadTasks.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ArcCLI.h" />
     <ClInclude Include="src\collections\CommandKeyDictionary.h" />
+    <ClInclude Include="src\commands\AddCommand.h" />
     <ClInclude Include="src\commands\CommandData.h" />
     <ClInclude Include="src\commands\CommandFactory.h" />
     <ClInclude Include="src\commands\CommandType.h" />
@@ -183,7 +185,8 @@
     <ClInclude Include="src\exceptions\UninitializedRepoException.h" />
     <ClInclude Include="src\io\FileUtils.h" />
     <ClInclude Include="src\io\ISerializable.h" />
-    <ClInclude Include="src\mt\CountingTask.h" />
+    <ClInclude Include="src\objects\ObjectFactory.h" />
+    <ClInclude Include="src\tasks\CountingTask.h" />
     <ClInclude Include="src\mt\IRunnable.h" />
     <ClInclude Include="src\mt\ThreadInstance.h" />
     <ClInclude Include="src\mt\Task.h" />
@@ -193,7 +196,7 @@
     <ClInclude Include="src\objects\TrackedObject.h" />
     <ClInclude Include="src\objects\TrackedType.h" />
     <ClInclude Include="src\objects\TreeObject.h" />
-    <ClInclude Include="src\tasks\WaitForThreadTasks.h" />
+    <ClInclude Include="src\tasks\LoadChecksumTask.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

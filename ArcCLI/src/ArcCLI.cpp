@@ -41,7 +41,7 @@ namespace MaikoDev {
                 _arcPath.concat("\\.arc");
             }
 
-            _commandFactory = std::make_unique<Commands::CommandFactory>(_arcPath);
+            _commandFactory = std::make_unique<Commands::CommandFactory>(_startPath, _arcPath);
 
             std::unique_ptr<Commands::CommandData> commandData = Commands::extractCommand(argc, args);
 
