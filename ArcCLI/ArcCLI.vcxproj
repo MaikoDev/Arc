@@ -162,6 +162,7 @@
     <ClCompile Include="src\exceptions\CommandRuntimeException.cpp" />
     <ClCompile Include="src\exceptions\NonValidCommandException.cpp" />
     <ClCompile Include="src\exceptions\UninitializedRepoException.cpp" />
+    <ClCompile Include="src\io\StagedFile.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\mt\ThreadPool.cpp" />
     <ClCompile Include="src\objects\BlobObject.cpp" />
@@ -171,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ArcCLI.h" />
+    <ClInclude Include="src\ArcDefines.h" />
     <ClInclude Include="src\collections\CommandKeyDictionary.h" />
     <ClInclude Include="src\commands\AddCommand.h" />
     <ClInclude Include="src\commands\CommandData.h" />
@@ -185,6 +187,8 @@
     <ClInclude Include="src\exceptions\UninitializedRepoException.h" />
     <ClInclude Include="src\io\FileUtils.h" />
     <ClInclude Include="src\io\ISerializable.h" />
+    <ClInclude Include="src\io\StagedFile.h" />
+    <ClInclude Include="src\objects\ObjectContent.h" />
     <ClInclude Include="src\objects\ObjectFactory.h" />
     <ClInclude Include="src\tasks\CountingTask.h" />
     <ClInclude Include="src\mt\IRunnable.h" />

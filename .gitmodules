@@ -1,3 +1,6 @@
 [submodule "dependencies/gzip"]
 	path = dependencies/gzip
 	url = https://github.com/mapbox/gzip-hpp
+[submodule "dependencies/zlib"]
+	path = dependencies/zlib
+	url = https://github.com/madler/zlib
