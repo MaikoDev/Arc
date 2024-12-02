@@ -22,9 +22,9 @@ namespace MaikoDev {
             }
 
             void AddCommand::run() {
-                for (const auto& filePath : _filePaths) {
+                /*for (const auto& filePath : _filePaths) {
                     BlobObject fileObj(filePath);
-                }
+                }*/
             }
         }
     }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <fstream>
 #include <filesystem>
 
 namespace fs = std::filesystem;
@@ -29,6 +30,31 @@ namespace MaikoDev {
 
             inline const std::string const ConvertToWinPath(const std::string directoryPath) { return ConvertToPath(directoryPath, '/', '\\', directoryPath.length() + directoryPath.length() / 4); }
             inline const std::string const ConvertToWinPath(const fs::path directoryPath) { return ConvertToWinPath(directoryPath.string()); }
+
+            inline std::unique_ptr<std::string> readFile(const fs::path& path, const size_t fileSize = 0) {
+                std::unique_ptr<std::string> fileData = std::make_unique<std::string>();
+                if (fileSize != 0) fileData->reserve(fileSize);
+
+                std::ifstream file(path);
+                std::string fileLine;
+
+                while (std::getline(file, fileLine)) {
+                    fileData->append(fileLine);
+                    fileData->push_back('\n');
+                }
+
+                return fileData;
+            }
+
+            inline std::streampos GetFileSize(std::ifstream& file) {
+                std::streampos size;
+
+                file.seekg(0, std::ios::end);
+                size = file.tellg();
+                file.seekg(0, std::ios::beg);
+
+                return size;
+            }
         }
     }
 }

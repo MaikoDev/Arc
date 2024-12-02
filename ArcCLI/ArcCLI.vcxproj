@@ -126,7 +126,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\gzip\include;$(SolutionDir)dependencies\openssl\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\zlib;$(SolutionDir)dependencies\gzip\include;$(SolutionDir)dependencies\openssl\include;$(ProjectDir)src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -164,11 +164,15 @@
     <ClCompile Include="src\exceptions\UninitializedRepoException.cpp" />
     <ClCompile Include="src\io\StagedFile.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\managers\ManagerInstance.cpp" />
+    <ClCompile Include="src\memory\ByteContainer.cpp" />
     <ClCompile Include="src\mt\ThreadPool.cpp" />
     <ClCompile Include="src\objects\BlobObject.cpp" />
     <ClCompile Include="src\objects\ObjectFactory.cpp" />
     <ClCompile Include="src\objects\TrackedObject.cpp" />
     <ClCompile Include="src\objects\TreeObject.cpp" />
+    <ClCompile Include="src\reflective\FunctionParams.cpp" />
+    <ClCompile Include="src\reflective\ParameterStruct.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ArcCLI.h" />
@@ -188,8 +192,18 @@
     <ClInclude Include="src\io\FileUtils.h" />
     <ClInclude Include="src\io\ISerializable.h" />
     <ClInclude Include="src\io\StagedFile.h" />
-    <ClInclude Include="src\objects\ObjectContent.h" />
+    <ClInclude Include="src\managers\ArcManager.h" />
+    <ClInclude Include="src\managers\ManagerInstance.h" />
+    <ClInclude Include="src\managers\ObjectManager.h" />
+    <ClInclude Include="src\memory\ByteContainer.h" />
+    <ClInclude Include="src\memory\ByteStack.h" />
+    <ClInclude Include="src\memory\ByteStackConversion.h" />
     <ClInclude Include="src\objects\ObjectFactory.h" />
+    <ClInclude Include="src\reflective\FunctionParams.h" />
+    <ClInclude Include="src\reflective\ParameterInfo.h" />
+    <ClInclude Include="src\reflective\ParameterStruct.h" />
+    <ClInclude Include="src\reflective\Types.h" />
+    <ClInclude Include="src\reflective\TypeTraits.h" />
     <ClInclude Include="src\tasks\CountingTask.h" />
     <ClInclude Include="src\mt\IRunnable.h" />
     <ClInclude Include="src\mt\ThreadInstance.h" />
@@ -201,6 +215,8 @@
     <ClInclude Include="src\objects\TrackedType.h" />
     <ClInclude Include="src\objects\TreeObject.h" />
     <ClInclude Include="src\tasks\LoadChecksumTask.h" />
+    <ClInclude Include="src\utils\EncryptionUtils.h" />
+    <ClInclude Include="src\utils\MacroUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
